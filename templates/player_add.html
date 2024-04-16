@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'yinchilar Ro'yxati</title>
+</head>
+<body>
+    <h1>O'yinchilar Ro'yxati</h1>
+    <form method="GET">
+        <select name="klub_filtri">
+            <option value="">Hamma Klublar</option>
+            {% for club in clublar %}
+                <option value="{{ club.nomi }}">{{ club.nomi }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtr</button>
+    </form>
+    <ul>
+        {% for player in players %}
+            <li>{{ player.ismi }} - {{ player.klub }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

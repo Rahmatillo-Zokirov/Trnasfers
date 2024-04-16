@@ -1,0 +1,31 @@
+{% extends 'header.html' %}
+
+{% block content %}
+<div class="nav">
+  {% for club in clubs %}
+  <h2>– {{ club.nom }} –</h2>
+  {% endfor %}
+  <table class="content-nav">
+    <thead>
+      <tr>
+        <td>Player</td>
+        <td>Position</td>
+        <td>Nationality</td>
+        <td>
+          Transfer Value (Mill. Euro)
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for player in players %}
+      <tr>
+        <td>{{ player.ism }}</td>
+        <td>{{ player.pozitsiya }}</td>
+        <td>{{ player.raqam }}</td>
+        <td>{{ player.davlat }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
