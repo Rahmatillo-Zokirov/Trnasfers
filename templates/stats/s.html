@@ -1,33 +1,37 @@
 {% extends 'header.html' %}
 
 {% block title %}
-<title>Statistika</title>
+<title>Top 50 Clubs by Income</title>
 {% endblock %}
 
 {% block content %}
 <div class="nav">
-  <h2>– 2020/21 YILI BO'YICHA ENGA YUQORI 50 KULUBLAR –</h2>
-  <table class="content-nav">
-    <thead>
-      <tr>
-        <td>#</td>
-        <td>Klub</td>
-        <td>Xarajatlar (Mln. Euro)</td>
-      </tr>
-    </thead>
-    <tbody>
-      {% for klub, xarajat in eng_yuqori_50_clublar %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ klub.nom }}</td>
-        <td>{{ xarajat }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <h2>Top 50 Clubs by Income in 2020/21</h2>
+    <table class="content-nav">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Club</td>
+                <td>Income (Mln. Euro)</td>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="content">
+    <table class="playerss">
+        <tbody>
+            {% for klub, xarajat in eng_yuqori_50_clublar %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ klub }}</td>
+                <td>{{ xarajat }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 <div class="latest-transfers">
-  <hr>
-  <p>Bu eng qimmatli o'tkazmalar ro'yxati. Minimal o'tkazma qiymati 50 million euro.</p>
+    <hr>
+    <p>This is the list of top 50 clubs by income. The minimum transfer value is 50 million euros.</p>
 </div>
 {% endblock %}

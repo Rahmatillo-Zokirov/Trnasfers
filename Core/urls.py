@@ -23,4 +23,5 @@ urlpatterns = [
     path('clubs/<int:club_id>/players/', ClubPlayersView.as_view(), name='club_players'),
     path('accurate/', TransferAccurateView.as_view(), name='accurate_predictions'),
     path('top-50-clubs/', ClubsXarajatView.as_view(), name='top_50_clubs'),
+    path('top-50-club-d', ClubsDaromadView.as_view(), name='top_50_club_d'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

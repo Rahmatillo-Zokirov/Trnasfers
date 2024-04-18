@@ -90,14 +90,15 @@ class ClubsXarajatView(View):
         transfers = Transfer.objects.all()
         club_xarajat = {}
         for transfer in transfers:
-            if transfer.club2.id not in club_xarajat:
-                club_xarajat[transfer.club2.id] = 0
-            club_xarajat[transfer.club2.id] += transfer.narx
+            club = transfer.club2
+            if club not in club_xarajat:
+                club_xarajat[club] = 0
+            club_xarajat[club] += transfer.narx
         eng_yuqori_50_clublar = sorted(club_xarajat.items(), key=lambda x: x[1], reverse=True)[:50]
         context = {
             'eng_yuqori_50_clublar': eng_yuqori_50_clublar
         }
-        return render(request, 's.html', context)
+        return render(request, 'stats/s.html', context)
 
 class TransferAccurateView(View):
     def get(self, request):
@@ -105,7 +106,23 @@ class TransferAccurateView(View):
         context = {
             'transfers': transfers,
         }
-        return render(request, "150-accurate-predictions.html", context)
+        return render(request, "stats/150-accurate-predictions.html", context)
+
+
+class ClubsDaromadView(View):
+    def get(self, request):
+        transfers = Transfer.objects.all()
+        club_daromad = {}
+        for transfer in transfers:
+            club = transfer.club1
+            if club not in club_daromad:
+                club_daromad[club] = 0
+            club_daromad[club] += transfer.narx
+        eng_yuqori_50_clublar = sorted(club_daromad.items(), key=lambda x: x[1], reverse=True)[:50]
+        context = {
+            'eng_yuqori_50_clublar': [(club.id, club.nom, daromad) for club, daromad in eng_yuqori_50_clublar]
+        }
+        return render(request, 'stats/top-50-clubs-by-income-in-2021.html', context)
 
 
 
