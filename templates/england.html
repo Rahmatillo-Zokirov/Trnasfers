@@ -10,7 +10,7 @@
   <div class="clubs">
     {% for club in clubs %}
     <div class="club">
-      <a href="#">
+      <a href="{% url 'club_players' club.id %}">
         <img src="{{ club.logo.url }}" alt="" />
         {{ club.nom }}
       </a>

@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import render
 from django.views import View
 
@@ -47,10 +48,11 @@ class Player_20(View):
         return render(request, 'U-20 players.html', context)
 
 
-class LatestTransfer(View):
+class TransferRecordsView(View):
     def get(self, request):
+        transferlar = Transfer.objects.all().order_by('-narx')
         context = {
-            'transferlar': Transfer.objects.all()
+            'transferlar': transferlar,
         }
         return render(request, "transfer-records.html", context)
 
@@ -70,26 +72,41 @@ class StatsView(View):
 
 
 
-class ClubPlayerView(View):
-    def get(self, request, pk):
-        club = Club.objects.get(id=pk)
+class ClubPlayersView(View):
+    def get(self, request, club_id):
+        club = Club.objects.get(id=club_id)
         players = Player.objects.filter(club=club)
         context = {
             'clubs': club,
             'players': players,
         }
-        return render(request, 'clubplyers.html', context)
+        return render(request, 'clubplayers.html', context)
+
 
 
 class ClubsXarajatView(View):
     def get(self, request):
         clublar = Club.objects.all()
-        trnsfer = Transfer.objects.all()
+        transfers = Transfer.objects.all()
         club_xarajat = {}
-        for club in clublar:
-            club_xarajat.update({club.id:0})
-            for t in trnsfer:
-                if t.club2 == club:
-                    club_xarajat.update({club.id:club_xarajat[club]+t.narx})
-        return render(request, 'top-50-clubs-by-expenditure-in2021.html', club_xarajat)
+        for transfer in transfers:
+            if transfer.club2.id not in club_xarajat:
+                club_xarajat[transfer.club2.id] = 0
+            club_xarajat[transfer.club2.id] += transfer.narx
+        eng_yuqori_50_clublar = sorted(club_xarajat.items(), key=lambda x: x[1], reverse=True)[:50]
+        context = {
+            'eng_yuqori_50_clublar': eng_yuqori_50_clublar
+        }
+        return render(request, 's.html', context)
+
+class TransferAccurateView(View):
+    def get(self, request):
+        transfers = Transfer.objects.filter(narx=F('taxmin_narx'))
+        context = {
+            'transfers': transfers,
+        }
+        return render(request, "150-accurate-predictions.html", context)
+
+
+
 

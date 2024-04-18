@@ -1,5 +1,9 @@
 {% extends 'header.html' %}
 
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
 
 {% block content %}
 <div class="latest-transfers">
@@ -9,7 +13,7 @@
     <a href="{% url 'players' %}"> PLAYERS </a>
     <a href="{% url 'player_20' %}"> U-20 PLAYERS </a>
     <a href="{% url 'tr' %}"> TRYOUTS </a>
-    <a href="./stats.html"> STATS </a>
+    <a href="{% url 'stats' %}"> STATS </a>
   </div>
 </div>
 {% endblock %}

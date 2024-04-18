@@ -13,7 +13,7 @@
 <div class="clubs">
   {% for club in clublar %}
   <div class="club">
-    <a href="clubs/<int:club_id>/players/">
+    <a href="{% url 'club_players' club.id %}">
       <img src="{{ club.logo.url }}" alt="" />
       {{ club.nom }}
     </a>

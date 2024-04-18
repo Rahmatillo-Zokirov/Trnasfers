@@ -18,8 +18,9 @@ urlpatterns = [
     path('transfers/', LatestTransfers.as_view(), name='transfers'),
     path('players/', Players.as_view(), name='players'),
     path('player_20/', Player_20.as_view(), name='player_20'),
-    path('transfers_r/', LatestTransfer.as_view(), name='transfers_r'),
+    path('transfers_r/', TransferRecordsView.as_view(), name='transfers_r'),
     path('stats/', StatsView.as_view(), name='stats'),
-    path('clubs/<int:club>/players/', ClubPlayerView.as_view()),
-    # path('club_p/', ClubPlayersView.as_view(), name='club_p'),
+    path('clubs/<int:club_id>/players/', ClubPlayersView.as_view(), name='club_players'),
+    path('accurate/', TransferAccurateView.as_view(), name='accurate_predictions'),
+    path('top-50-clubs/', ClubsXarajatView.as_view(), name='top_50_clubs'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
